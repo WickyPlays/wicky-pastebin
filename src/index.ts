@@ -3,6 +3,7 @@ import fastifyView from "@fastify/view"
 import fastify from "fastify"
 import path from "path"
 import chokidar from "chokidar"
+import { generateRandomStr } from "./utils/identifiers"
 
 const fastifyInstance = fastify()
 
@@ -28,17 +29,26 @@ fastifyInstance.get("/", async (req: any, reply: any) => {
   return reply.view("editor.ejs", { name: "User" });
 })
 
-fastifyInstance.get("/api/files", async (req: any, reply: any) => {
-  return reply.send(Array.from(fileCache.values()));
+fastifyInstance.get("/favicon.ico", async (req: any, reply: any) => {
+  return reply.code(404).send();
 })
 
 fastifyInstance.get("/:id", async (req: any, reply: any) => {
   const id = req.params.id;
   const file = fileCache.get(id);
-  if (!file) {
-    return reply.code(404).send({ error: "File not found" });
-  }
-  return reply.send(file);
+  const content = file?.content || "Content is not available";
+
+  return reply.view("editor.ejs", { content });
+})
+
+fastifyInstance.post("/", async (req: any, reply: any) => {
+  const { content } = req.body;
+  const id = generateRandomStr(10);
+  fileCache.set(id, { id, content });
+
+  console.log(`We now have ${fileCache.size} files in cache`);
+
+  return reply.send({ id });
 })
 
 fastifyInstance.listen({ port: 3000 }, (err: any) => {

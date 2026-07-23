@@ -8,7 +8,7 @@
 <body>
   <div class="header">
     <div class="header-left">
-      <h1>Wicky Pastebin</h1>
+      <h1 class="header-title" onclick="window.location.href = '/';">WickyPastebin</h1>
     </div>
     <div class="header-right">
       <div id="stats-info">
@@ -23,7 +23,7 @@
       <div class="icon" id="themeToggle" title="Toggle Theme">
         <img src="/img/icons/sun.svg" alt="Toggle Theme" id="themeIcon" />
       </div>
-      <div class="icon" id="save" title="Save">
+      <div class="icon" id="save" title="Save" onclick="saveFile()">
         <img src="/img/icons/save.svg" alt="Save" />
       </div>
       <div class="icon" id="settings" title="Settings">
@@ -36,11 +36,12 @@
   </div>
   <div class="editor-container">
     <div class="line-numbers" id="lineNumbers"></div>
-    <textarea class="editor" id="editor" placeholder="Type or paste your content here..." spellcheck="false"></textarea>
+    <textarea class="editor" id="editor" spellcheck="false"
+      placeholder="Type or paste your content here..."><%= typeof content !== "undefined" ? content : "" %></textarea>
   </div>
   <%- include('info-dialog.ejs') %>
-  <%- include('settings-dialog.ejs') %>
-  <script src="/js/editor.js"></script>
+    <%- include('settings-dialog.ejs') %>
+      <script src="/js/editor.js"></script>
 </body>
 
 </html>

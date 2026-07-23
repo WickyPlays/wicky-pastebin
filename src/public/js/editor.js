@@ -72,6 +72,26 @@ function updateStats() {
   sizeCount.textContent = formatBytes(bytes);
 }
 
+async function saveFile() {
+  let content = await grabEditorContent();
+  const response = await fetch("/", {
+    method: "POST",
+    body: JSON.stringify({content}),
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  });
+
+  if (response.ok) {
+    const data = await response.json();
+    window.location.href = `/${data.id}`;
+  }
+}
+
+async function grabEditorContent() {
+  return editor.value;
+}
+
 editor.addEventListener('input', () => {
   updateLineNumbers();
   updateStats();

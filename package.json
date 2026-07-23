@@ -1,7 +1,7 @@
 {
   "name": "wicky-pastebin",
   "scripts": {
-    "dev": "bun --watch src/index.ts",
+    "dev": "bun --hot src/index.ts",
     "build:css": "sass src/public/css/style.scss src/public/css/style.css",
     "watch:css": "sass --watch src/public/css/style.scss src/public/css/style.css"
   },
