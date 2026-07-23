@@ -6,6 +6,9 @@ import chokidar from "chokidar"
 
 const fastifyInstance = fastify()
 
+//Should've used database later...
+const fileCache = new Map()
+
 fastifyInstance.register(fastifyView, {
   engine: {
     ejs: require("ejs")
@@ -22,7 +25,20 @@ fastifyInstance.register(fastifyStatic, {
 })
 
 fastifyInstance.get("/", async (req: any, reply: any) => {
-  return reply.view("index.ejs", { name: "User" });
+  return reply.view("editor.ejs", { name: "User" });
+})
+
+fastifyInstance.get("/api/files", async (req: any, reply: any) => {
+  return reply.send(Array.from(fileCache.values()));
+})
+
+fastifyInstance.get("/:id", async (req: any, reply: any) => {
+  const id = req.params.id;
+  const file = fileCache.get(id);
+  if (!file) {
+    return reply.code(404).send({ error: "File not found" });
+  }
+  return reply.send(file);
 })
 
 fastifyInstance.listen({ port: 3000 }, (err: any) => {
