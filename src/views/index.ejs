@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div class="header">
+    <div class="header-left">
+      <h1>Wicky Pastebin</h1>
+    </div>
+    <div class="header-right">
+      <div class="icon" id="save" title="Save">
+        <img src="/img/icons/save.svg" alt="Save" />
+      </div>
+      <div class="icon" id="info" title="Info">
+        <img src="/img/icons/info.svg" alt="Info" />
+      </div>
+    </div>
+  </div>
+  <div class="editor-container">
+    <div class="line-numbers" id="lineNumbers"></div>
+    <textarea class="editor" id="editor" placeholder="Type or paste your content here..." spellcheck="false"></textarea>
+  </div>
+  <%- include('info-dialog.ejs') %>
+    <script>
+      const editor = document.getElementById('editor');
+      const lineNumbers = document.getElementById('lineNumbers');
+      const infoDialog = document.getElementById('infoDialog');
+      const closeDialog = document.getElementById('closeDialog');
+
+      function updateLineNumbers() {
+        const lines = editor.value.split('\n');
+        lineNumbers.innerHTML = lines.map((_, i) => `<div>${i + 1}</div>`).join('');
+      }
+
+      editor.addEventListener('input', updateLineNumbers);
+      editor.addEventListener('scroll', () => {
+        lineNumbers.scrollTop = editor.scrollTop;
+      });
+      updateLineNumbers();
+
+      document.getElementById('info').addEventListener('click', () => {
+        infoDialog.style.display = 'flex';
+      });
+
+      closeDialog.addEventListener('click', () => {
+        infoDialog.style.display = 'none';
+      });
+
+      infoDialog.addEventListener('click', (e) => {
+        if (e.target === infoDialog) {
+          infoDialog.style.display = 'none';
+        }
+      });
+    </script>
+</body>
+
+</html>
