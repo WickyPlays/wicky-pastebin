@@ -2,7 +2,6 @@ import fastifyStatic from "@fastify/static"
 import fastifyView from "@fastify/view"
 import fastify from "fastify"
 import path from "path"
-import chokidar from "chokidar"
 import { generateRandomStr } from "./utils/identifiers"
 
 const fastifyInstance = fastify()
@@ -26,7 +25,7 @@ fastifyInstance.register(fastifyStatic, {
 })
 
 fastifyInstance.get("/", async (req: any, reply: any) => {
-  return reply.view("editor.ejs", { name: "User" });
+  return reply.view("editor.ejs", { content: "", edit: true });
 })
 
 fastifyInstance.get("/favicon.ico", async (req: any, reply: any) => {
@@ -37,14 +36,15 @@ fastifyInstance.get("/:id", async (req: any, reply: any) => {
   const id = req.params.id;
   const file = fileCache.get(id);
   const content = file?.content || "Content is not available";
+  const language = file?.language || "plaintext";
 
-  return reply.view("editor.ejs", { content });
+  return reply.view("editor.ejs", { content, language, edit: false });
 })
 
 fastifyInstance.post("/", async (req: any, reply: any) => {
-  const { content } = req.body;
+  const { content, language } = req.body;
   const id = generateRandomStr(10);
-  fileCache.set(id, { id, content });
+  fileCache.set(id, { id, content, language });
 
   console.log(`We now have ${fileCache.size} files in cache`);
 
@@ -54,24 +54,4 @@ fastifyInstance.post("/", async (req: any, reply: any) => {
 fastifyInstance.listen({ port: 3000 }, (err: any) => {
   if (err) throw err;
   console.log(`server listening on ${fastifyInstance?.server?.address()?.port}`);
-})
-
-const watcher = chokidar.watch([
-  path.join(__dirname, "views"),
-  path.join(__dirname, "public")
-], {
-  ignored: /(^|[\/\\])\../,
-  persistent: true
-})
-
-watcher.on("change", (path) => {
-  console.log(`File changed: ${path}`)
-})
-
-watcher.on("add", (path) => {
-  console.log(`File added: ${path}`)
-})
-
-watcher.on("unlink", (path) => {
-  console.log(`File removed: ${path}`)
 })
