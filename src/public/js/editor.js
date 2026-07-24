@@ -127,8 +127,6 @@ async function saveFile() {
     language = hljs.highlightAuto(content).language;
   }
 
-  alert(`Language chosen: ${language}`)
-
   const response = await fetch("/", {
     method: "POST",
     body: JSON.stringify({ content, language }),
