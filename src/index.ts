@@ -2,12 +2,9 @@ import fastifyStatic from "@fastify/static"
 import fastifyView from "@fastify/view"
 import fastify from "fastify"
 import path from "path"
-import { generateRandomStr } from "./utils/identifiers"
+import { prisma } from "./prisma/adapter"
 
 const fastifyInstance = fastify()
-
-//Should've used database later...
-const fileCache = new Map()
 
 fastifyInstance.register(fastifyView, {
   engine: {
@@ -34,24 +31,33 @@ fastifyInstance.get("/favicon.ico", async (req: any, reply: any) => {
 
 fastifyInstance.get("/:id", async (req: any, reply: any) => {
   const id = req.params.id;
-  const file = fileCache.get(id);
-  const content = file?.content || "Content is not available";
-  const language = file?.language || "plaintext";
+  const paste = await prisma.paste.findUnique({
+    where: { id }
+  });
 
-  return reply.view("editor.ejs", { content, language, edit: false });
+  if (!paste) {
+    return reply.code(404).send({ error: "Paste not found" });
+  }
+
+  return reply.view("editor.ejs", { content: paste.content, language: paste.language, edit: false });
 })
 
 fastifyInstance.post("/", async (req: any, reply: any) => {
   const { content, language } = req.body;
-  const id = generateRandomStr(10);
-  fileCache.set(id, { id, content, language });
 
-  console.log(`We now have ${fileCache.size} files in cache`);
+  const paste = await prisma.paste.create({
+    data: {
+      content,
+      language: language || "plaintext"
+    }
+  });
 
-  return reply.send({ id });
+  return reply.send({ id: paste.id });
 })
 
 fastifyInstance.listen({ port: 3000 }, (err: any) => {
   if (err) throw err;
-  console.log(`server listening on ${fastifyInstance?.server?.address()?.port}`);
+
+  const port = fastifyInstance?.server?.address()?.port;
+  console.log(`server listening on ${port}`);
 })

@@ -66,6 +66,15 @@ h1 {
   }
 }
 
+.language-display {
+  padding: 6px 10px;
+  border-radius: 4px;
+  background: var(--bg-secondary);
+  color: var(--text-primary);
+  font-size: 13px;
+  font-weight: 500;
+}
+
 .header {
   display: flex;
   align-items: center;

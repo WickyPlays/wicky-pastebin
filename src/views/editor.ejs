@@ -2,6 +2,7 @@
 <html lang="en">
 
 <head>
+  <title>WickyPastebin - <%= typeof language !== "undefined" ? language + " " : "" %>Editor</title>
   <link rel="stylesheet" href="/css/editor.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,7 +15,11 @@
   <div class="header">
     <div class="header-left">
       <h1 class="header-title" onclick="window.location.href = '/';">WickyPastebin</h1>
+      <% if (edit) { %>
       <select class="language-select" id="languageSelect"></select>
+      <% } else { %>
+      <span class="language-display" id="languageDisplay"></span>
+      <% } %>
     </div>
     <div class="header-right">
       <div id="stats-info">
