@@ -1,3 +1,4 @@
+import "dotenv/config"
 import fastifyStatic from "@fastify/static"
 import fastifyView from "@fastify/view"
 import fastify from "fastify"
@@ -55,9 +56,11 @@ fastifyInstance.post("/", async (req: any, reply: any) => {
   return reply.send({ id: paste.id });
 })
 
-fastifyInstance.listen({ port: 3000 }, (err: any) => {
+const PORT = parseInt(process.env.PORT || "3000", 10);
+const HOST = process.env.HOST || "0.0.0.0";
+
+fastifyInstance.listen({ port: PORT, host: HOST }, (err: any) => {
   if (err) throw err;
 
-  const port = fastifyInstance?.server?.address()?.port;
-  console.log(`server listening on ${port}`);
+  console.log(`server listening on ${HOST}:${PORT}`);
 })
