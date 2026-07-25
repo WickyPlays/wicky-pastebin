@@ -69,7 +69,7 @@ docker build -t wicky-pastebin https://github.com/WickyPlays/wicky-pastebin.git
 
 Then, run the container:
 ```sh
-docker run -p 3000:3000 wicky-pastebin
+docker run -p 3030:3030 wicky-pastebin
 ```
 
 ## How to Use
