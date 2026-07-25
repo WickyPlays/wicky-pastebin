@@ -28,14 +28,12 @@ ENV NODE_ENV=production \
     HOST=0.0.0.0 \
     DB_MODE=sqlite \
     DB_PROVIDER=sqlite \
-    DATABASE_URL="file:./database/paste.db"
 
 # Copy built application and dependencies from builder stage
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/src ./src
 COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
-COPY --from=builder /app/database ./database
 
 # Expose server port
 EXPOSE ${PORT}
