@@ -6,10 +6,6 @@ if (!dbMode) {
   throw new Error("DB_MODE is not defined");
 }
 
-if (!process.env.DATABASE_URL) {
-  throw new Error("DATABASE_URL is not defined");
-}
-
 if (dbMode !== "postgres" && dbMode !== "sqlite") {
   throw new Error("Invalid database mode");
 }
