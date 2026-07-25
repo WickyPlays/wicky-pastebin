@@ -3,5 +3,10 @@ export const generateRandomIdNum = () => {
 }
 
 export const generateRandomStr = (len: number) => {
-  return Math.random().toString(36).substring(2, len + 2);
+  const chars = "abcdefghijklmnopqrstuvwxyz0123456789";
+  let result = "";
+  for (let i = 0; i < len; i++) {
+    result += chars.charAt(Math.floor(Math.random() * chars.length));
+  }
+  return result;
 }

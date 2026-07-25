@@ -4,6 +4,7 @@ import fastifyView from "@fastify/view"
 import fastify from "fastify"
 import path from "path"
 import { prisma } from "./prisma/adapter"
+import { generateRandomStr } from "./utils/identifiers"
 
 const fastifyInstance = fastify()
 
@@ -46,8 +47,19 @@ fastifyInstance.get("/:id", async (req: any, reply: any) => {
 fastifyInstance.post("/", async (req: any, reply: any) => {
   const { content, language } = req.body;
 
+  let id = generateRandomStr(10);
+  let existing = await prisma.paste.findUnique({ where: { id } });
+  let attempts = 0;
+
+  while (existing && attempts < 10) {
+    id = generateRandomStr(10);
+    existing = await prisma.paste.findUnique({ where: { id } });
+    attempts++;
+  }
+
   const paste = await prisma.paste.create({
     data: {
+      id,
       content,
       language: language || "plaintext"
     }
