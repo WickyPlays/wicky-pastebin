@@ -27,7 +27,7 @@ ENV NODE_ENV=production \
     PORT=${PORT} \
     HOST=0.0.0.0 \
     DB_MODE=sqlite \
-    DB_PROVIDER=sqlite \
+    DB_PROVIDER=sqlite
 
 # Copy built application and dependencies from builder stage
 COPY --from=builder /app/package.json ./
