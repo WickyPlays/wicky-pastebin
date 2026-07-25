@@ -60,6 +60,18 @@ Start the production server:
 bun run dev:server
 ```
 
+### Docker
+
+Build the Docker image:
+```sh
+docker build -t wicky-pastebin https://github.com/WickyPlays/wicky-pastebin.git
+```
+
+Then, run the container:
+```sh
+docker run -p 3030:3030 wicky-pastebin
+```
+
 ## How to Use
 
 1. **Create a Paste** - Enter your code or text in the editor
@@ -70,20 +82,13 @@ bun run dev:server
 
 ## Contributing
 
-Contributions are welcome! Please follow these steps:
+Contributions are always welcome! Please follow these steps:
 
-1. Fork the repository
+1. Fork this repository
 2. Create a feature branch (`git checkout -b feature/amazing-feature`)
 3. Commit your changes (`git commit -m 'Add amazing feature'`)
 4. Push to the branch (`git push origin feature/amazing-feature`)
 5. Open a Pull Request
-
-### Development Guidelines
-
-- Follow the existing code style
-- Add tests for new features
-- Update documentation as needed
-- Ensure all tests pass before submitting
 
 ## Acknowledgments
 
