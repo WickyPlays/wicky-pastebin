@@ -60,11 +60,11 @@ Start the production server:
 bun run dev:server
 ```
 
-Or, the recommended way is to use Docker:
+### Docker
 
 Build the Docker image:
 ```sh
-docker build -t wicky-pastebin .
+docker build -t wicky-pastebin https://github.com/WickyPlays/wicky-pastebin.git
 ```
 
 Then, run the container:
