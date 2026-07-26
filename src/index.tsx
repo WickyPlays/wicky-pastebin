@@ -64,11 +64,4 @@ app.post("/", async (c) => {
   return c.json({ id: paste.id });
 })
 
-const PORT = parseInt(process.env.PORT || "3000", 10);
-const HOST = process.env.HOST || "0.0.0.0";
-
-export default {
-  port: PORT,
-  host: HOST,
-  fetch: app.fetch
-};
+export default app;
