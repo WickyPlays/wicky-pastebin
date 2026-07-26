@@ -5,3 +5,5 @@ database/
 src/generated
 src/generated/prisma
 dist/
+.vercel
+.env*

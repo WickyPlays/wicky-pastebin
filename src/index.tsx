@@ -1,6 +1,6 @@
 import "dotenv/config"
 import { Hono } from "hono"
-import { serveStatic } from "hono/bun"
+import { serveStatic } from "@hono/node-server/serve-static";
 import { prisma } from "./prisma/adapter"
 import { generateRandomStr } from "./utils/identifiers"
 import { jsxRenderer } from 'hono/jsx-renderer'

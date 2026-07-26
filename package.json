@@ -6,15 +6,16 @@
     "dev:server": "bun --hot src/index.tsx",
     "dev:css": "sass --watch src/public/css/editor.scss src/public/css/editor.css",
     "dev": "concurrently \"bun run dev:server\" \"bun run dev:css\"",
-    "build": "bun run build:css && bun prisma generate && bun build src/index.tsx --target=bun --outfile dist/index.js",
+    "build": "bun run build:css && bun prisma generate && bun build src/index.tsx --target=node --outfile dist/index.js",
     "build:css": "sass src/public/css/editor.scss src/public/css/editor.css",
-    "start": "bun dist/index.js"
+    "start": "bun -b dist/index.js"
   },
   "author": {
     "name": "WickyPlays",
     "email": "baottworkspace@gmail.com"
   },
   "dependencies": {
+    "@hono/node-server": "^2.0.12",
     "@libsql/client": "^0.17.4",
     "@prisma/adapter-libsql": "^7.9.0",
     "@prisma/adapter-pg": "^7.9.0",
