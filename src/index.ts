@@ -3,15 +3,14 @@ import fastifyStatic from "@fastify/static"
 import fastifyView from "@fastify/view"
 import fastify from "fastify"
 import path from "path"
+import ejs from "ejs"
 import { prisma } from "./prisma/adapter"
 import { generateRandomStr } from "./utils/identifiers"
 
 const fastifyInstance = fastify()
 
 fastifyInstance.register(fastifyView, {
-  engine: {
-    ejs: require("ejs")
-  },
+  engine: { ejs },
   root: path.join(__dirname, "views"),
   options: {
     cache: false

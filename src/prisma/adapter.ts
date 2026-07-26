@@ -21,23 +21,23 @@ if (dbMode !== "postgres" && dbMode !== "sqlite" && dbMode !== "libsql") {
 
 let prismaInstance: any = null;
 
-export function getPrisma() {
+export async function getPrisma() {
   if (prismaInstance) {
     return prismaInstance;
   }
 
   if (dbMode === "postgres") {
-    const { prisma } = require("./adapter-postgres");
+    const { prisma } = await import("./adapter-postgres");
     prismaInstance = prisma;
   } else if (dbMode === "libsql") {
-    const { prisma } = require("./adapter-libsql");
+    const { prisma } = await import("./adapter-libsql");
     prismaInstance = prisma;
   } else {
-    const { prisma } = require("./adapter-sqlite");
+    const { prisma } = await import("./adapter-sqlite");
     prismaInstance = prisma;
   }
 
   return prismaInstance;
 }
 
-export const prisma = getPrisma();
+export const prisma = await getPrisma();

@@ -4,3 +4,4 @@ node_modules/
 database/
 src/generated
 src/generated/prisma
+dist/
