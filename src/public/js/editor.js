@@ -189,7 +189,7 @@ function updateStats() {
   sizeCount.textContent = formatBytes(bytes);
 }
 
-async function saveFile() {
+async function saveFile() {  
   let content = getEditorContent();
   let language = document.getElementById('languageSelect').value;
 
