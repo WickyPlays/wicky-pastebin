@@ -1,6 +1,7 @@
 # deps
 node_modules/
 .env
+.env.local
 database/
 src/generated
 src/generated/prisma
