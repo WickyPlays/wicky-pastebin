@@ -10,7 +10,11 @@ export function getPrisma() {
     return prismaInstance;
   }
 
-  const connectionString = process.env.DATABASE_URL;
+  const connectionString = process.env.DB_URL;
+  if (!connectionString) {
+    console.error("FATAL: DB_URL environment variable is missing.");
+    throw new Error("DB_URL is not defined");
+  }
   const pool = new pg.Pool({ connectionString });
   const adapter = new PrismaPg(pool);
 

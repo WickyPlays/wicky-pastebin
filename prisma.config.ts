@@ -1,6 +1,12 @@
 import 'dotenv/config'
 import { defineConfig } from 'prisma/config'
 
+if (!process.env.DB_URL) {
+  throw new Error("DB_URL environment variable is missing.");
+}
+
+const databaseUrl = process.env.DB_MODE === 'libsql' ? 'file:./database/dev.db' : process.env.DB_URL;
+
 export default defineConfig({
   schema: 'src/prisma/schema.prisma',
   migrations: {
@@ -8,6 +14,6 @@ export default defineConfig({
     seed: "tsx prisma/seed.ts",
   },
   datasource: {
-    url: process.env.DATABASE_URL || 'file:../database/paste.db',
-  },
+    url: databaseUrl
+  }
 })

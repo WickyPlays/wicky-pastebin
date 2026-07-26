@@ -29,16 +29,17 @@ export function getPrisma() {
     return prismaInstance;
   }
 
-  const dbPath = process.env.DB_URL;
-  if (!dbPath) {
+  const dbUrl = process.env.DB_URL;
+  if (!dbUrl) {
     console.error("FATAL: DB_URL environment variable is missing.");
     throw new Error("DB_URL is not defined");
   }
-  ensureDatabaseFile(dbPath);
 
-  const adapter = new PrismaLibSql({
-    url: dbPath,
-  });
+  if (dbUrl.startsWith("file:")) {
+    ensureDatabaseFile(dbUrl);
+  }
+
+  const adapter = new PrismaLibSql({ url: process.env.DB_URL!, authToken: process.env.DB_AUTH_TOKEN! });
 
   const globalForPrisma = globalThis as unknown as {
     prisma: PrismaClient | undefined;
@@ -54,18 +55,6 @@ export function getPrisma() {
   if (process.env.NODE_ENV !== "production") {
     globalForPrisma.prisma = prismaInstance;
   }
-
-  prismaInstance.$executeRawUnsafe(`
-    CREATE TABLE IF NOT EXISTS "Paste" (
-      "id" TEXT NOT NULL PRIMARY KEY,
-      "content" TEXT NOT NULL,
-      "language" TEXT NOT NULL,
-      "expiryTime" DATETIME,
-      "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
-    );
-  `).catch((err: any) => {
-    console.error("Failed to initialize database tables:", err);
-  });
 
   const cleanup = async () => {
     await prismaInstance?.$disconnect();
