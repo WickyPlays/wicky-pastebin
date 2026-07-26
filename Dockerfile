@@ -9,7 +9,8 @@ WORKDIR /app
 ARG PORT=3030
 ARG DB_MODE=sqlite
 ARG DB_URL=file:./database/dev.db
-# If selected libsql in DB_MODE, you can provide DB_AUTH_TOKEN while building
+# If selected libsql in DB_MODE, you can provide DB_AUTH_TOKEN while building,
+# ...although it's generally recommended not to do so, and should be overridden instead (by providing this env in creating container).
 ARG DB_AUTH_TOKEN=""
 
 # Make the build arguments available as environment variables.
@@ -17,6 +18,7 @@ ARG DB_AUTH_TOKEN=""
 ENV PORT=$PORT
 ENV DB_MODE=$DB_MODE
 ENV DB_URL=$DB_URL
+ENV DB_AUTH_TOKEN=$DB_AUTH_TOKEN
 
 # Copy package manifests and install dependencies
 COPY package.json bun.lock ./
@@ -46,7 +48,8 @@ ENV NODE_ENV=production \
     PORT=$PORT \
     HOST=0.0.0.0 \
     DB_MODE=$DB_MODE \
-    DB_URL=$DB_URL
+    DB_URL=$DB_URL \
+    DB_AUTH_TOKEN=$DB_AUTH_TOKEN
 
 # Copy the built application and dependencies from the builder stage
 COPY --from=builder /app/package.json ./
