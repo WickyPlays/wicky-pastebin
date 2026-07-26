@@ -4,7 +4,13 @@
     "dev:server": "bun --hot src/index.ts",
     "dev:css": "sass --watch src/public/css/editor.scss src/public/css/editor.css",
     "dev": "concurrently \"bun run dev:server\" \"bun run dev:css\"",
-    "build:css": "sass src/public/css/editor.scss src/public/css/editor.css"
+
+    "build:css": "sass src/public/css/editor.scss src/public/css/editor.css",
+    "build": "bun run build:css && bun prisma generate"
+  },
+  "author": {
+    "name": "WickyPlays",
+    "email": "baottworkspace@gmail.com"
   },
   "dependencies": {
     "@fastify/static": "^10.1.2",
