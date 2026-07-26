@@ -21,7 +21,7 @@ if (dbMode !== "postgres" && dbMode !== "sqlite" && dbMode !== "libsql") {
 
 let prismaInstance: any = null;
 
-export async function getPrisma() {
+async function getPrisma() {
   if (prismaInstance) {
     return prismaInstance;
   }
@@ -40,4 +40,4 @@ export async function getPrisma() {
   return prismaInstance;
 }
 
-export const prisma = await getPrisma();
+export { getPrisma };

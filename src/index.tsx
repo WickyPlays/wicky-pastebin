@@ -1,14 +1,14 @@
 import "dotenv/config"
 import { Hono } from "hono"
 import { serveStatic } from "@hono/node-server/serve-static";
-import { prisma } from "./prisma/adapter"
+import { getPrisma } from "./prisma/adapter"
 import { generateRandomStr } from "./utils/identifiers"
 import { jsxRenderer } from 'hono/jsx-renderer'
 import { Editor } from "./components/Editor"
 
 const app = new Hono()
 
-app.use("/*", serveStatic({ root: "./src/public" }))
+app.use("/*", serveStatic({ root: "./public" }))
 
 app.use(
   "*",
@@ -29,7 +29,7 @@ app.get("/", (c) => {
 
 app.get("/:id", async (c) => {
   const id = c.req.param("id");
-  const paste = await prisma.paste.findUnique({
+  const paste = await (await getPrisma()).paste.findUnique({
     where: { id }
   });
 
@@ -42,6 +42,7 @@ app.get("/:id", async (c) => {
 
 app.post("/", async (c) => {
   const { content, language } = await c.req.json();
+  const prisma = await getPrisma();
 
   let id = generateRandomStr(10);
   let existing = await prisma.paste.findUnique({ where: { id } });
@@ -53,7 +54,7 @@ app.post("/", async (c) => {
     attempts++;
   }
 
-  const paste = await prisma.paste.create({
+  const paste = await (await getPrisma()).paste.create({
     data: {
       id,
       content: content as string,
