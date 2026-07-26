@@ -1,6 +1,22 @@
+# Builder stage
+
 # Use the official Bun image as the base
 FROM oven/bun:1 AS builder
 WORKDIR /app
+
+# Build-time arguments with default values.
+# These can be overridden using --build-arg when running docker build.
+ARG PORT=3030
+ARG DB_MODE=sqlite
+ARG DB_URL=file:./database/dev.db
+# If selected libsql in DB_MODE, you can provide DB_AUTH_TOKEN while building
+ARG DB_AUTH_TOKEN=""
+
+# Make the build arguments available as environment variables.
+# Prisma generate requires DB_URL to exist during the build stage.
+ENV PORT=$PORT
+ENV DB_MODE=$DB_MODE
+ENV DB_URL=$DB_URL
 
 # Copy package manifests and install dependencies
 COPY package.json bun.lock ./
@@ -12,33 +28,34 @@ COPY . .
 # Generate Prisma Client
 RUN bunx prisma generate
 
-# Compile CSS in the meantime
+# Compile CSS
 RUN bun run build:css
 
 # Production runner stage
 FROM oven/bun:1 AS runner
 WORKDIR /app
 
-# Set default port
-ENV PORT=3030
+# Build-time arguments (used to initialize default runtime values)
+ARG PORT=3030
+ARG DB_MODE=sqlite
+ARG DB_URL=file:./database/dev.db
 
-# Set default production environment variables
-# DB_MODE is set to sqlite by default. Choose one: sqlite, postgresql, libsql
-# DB_URL is set to file:./database/dev.db by default. Change it to your database URL if using postgresql or libsql
+# Default production environment variables.
+# These may still be overridden with `docker run -e ...`
 ENV NODE_ENV=production \
-    PORT=${PORT} \
+    PORT=$PORT \
     HOST=0.0.0.0 \
-    DB_MODE=sqlite \
-    DB_URL=file:./database/dev.db
-    
-# Copy built application and dependencies from builder stage
+    DB_MODE=$DB_MODE \
+    DB_URL=$DB_URL
+
+# Copy the built application and dependencies from the builder stage
 COPY --from=builder /app/package.json ./
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/src ./src
 COPY --from=builder /app/prisma.config.ts ./prisma.config.ts
 
-# Expose server port
-EXPOSE ${PORT}
+# Expose the application port
+EXPOSE $PORT
 
 # Start the application
 CMD ["bun", "src/index.ts"]
