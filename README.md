@@ -1,6 +1,6 @@
 # WickyPastebin
 
-A modern, lightweight pastebin application built with Bun, Fastify, and Prisma. Share code snippets, text, and notes with syntax highlighting and a clean interface.
+A modern, lightweight pastebin application built with Bun, Hono, and Prisma. Use this to share code snippets, text, and notes with syntax highlighting and a clean interface.
 This project serves as the bare minimum implementation of a real pastebin application. Shape whatever you like with this.
 
 ## Features
@@ -8,7 +8,7 @@ This project serves as the bare minimum implementation of a real pastebin applic
 - **Syntax Highlighting** - Powered by highlight.js for 190+ languages
 - **Multiple Database Support** - SQLite (via libsql) or PostgreSQL
 - **Clean Interface** - Minimalist design with EJS templates
-- **Fast Performance** - Built on Fastify for optimal speed
+- **Fast Performance** - Built on Hono for optimal speed
 - **Hot Reload** - Development server with hot reload
 
 ## Installation
@@ -95,7 +95,7 @@ Contributions are always welcome! Please follow these steps:
 Thank you to the following technologies for making this project possible:
 
 - The [Bun](https://bun.sh/) team for the amazing runtime
-- [Fastify](https://fastify.dev/) for the excellent web framework
+- [Hono](https://hono.dev/) for the excellent web framework
 - [Prisma](https://www.prisma.io/) for the modern ORM
 - [highlight.js](https://highlightjs.org/) for syntax highlighting
 - The open-source community for inspiration and tools
