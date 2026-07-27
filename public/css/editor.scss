@@ -66,6 +66,22 @@ h1 {
   }
 }
 
+.expiration-select {
+  padding: 6px 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 13px;
+  cursor: pointer;
+  outline: none;
+  max-width: 120px;
+
+  &:focus {
+    border-color: var(--text-secondary);
+  }
+}
+
 .language-display {
   padding: 6px 10px;
   border-radius: 4px;
@@ -124,6 +140,15 @@ h1 {
 
   &:hover {
     background: var(--hover-bg);
+  }
+
+  &[style*="pointer-events: none"] {
+    cursor: not-allowed;
+    opacity: 0.5;
+
+    &:hover {
+      background: transparent;
+    }
   }
 
   img {

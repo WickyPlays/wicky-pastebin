@@ -12,12 +12,23 @@ const wordCount = document.getElementById('wordCount');
 const sizeCount = document.getElementById('sizeCount');
 const fontSelect = document.getElementById('fontSelect');
 const languageSelect = document.getElementById('languageSelect');
+const expirationSelect = document.getElementById('expirationSelect');
+const saveButton = document.getElementById('save');
 const highlightLangMeta = document.querySelector('meta[name="highlight-language"]');
 const languageDisplay = document.getElementById('languageDisplay');
 
 const isEditMode = editor.tagName === 'TEXTAREA';
 
 const DEFAULT_LANGUAGE = 'auto';
+
+const expirationOptions = [
+  // { value: 'never', label: 'Never' },
+  { value: '1d', label: '1 Day' },
+  { value: '3d', label: '3 Days' },
+  { value: '7d', label: '7 Days' },
+  { value: '14d', label: '14 Days' },
+  { value: '30d', label: '30 Days' }
+];
 
 const languages = [
   { value: 'auto', label: 'Auto-detect' },
@@ -118,6 +129,17 @@ function populateLanguageSelect() {
   });
 }
 
+function populateExpirationSelect() {
+  if (!expirationSelect) return;
+  expirationSelect.innerHTML = '';
+  expirationOptions.forEach(exp => {
+    const option = document.createElement('option');
+    option.value = exp.value;
+    option.textContent = exp.label;
+    expirationSelect.appendChild(option);
+  });
+}
+
 function setupLanguageDisplay() {
   if (!languageDisplay) return;
   const lang = highlightLangMeta?.getAttribute('content');
@@ -189,9 +211,23 @@ function updateStats() {
   sizeCount.textContent = formatBytes(bytes);
 }
 
-async function saveFile() {  
+function updateSaveButtonState() {
+  const content = getEditorContent();
+  const hasContent = content && content.trim().length > 0;
+  if (saveButton) {
+    saveButton.style.opacity = hasContent ? '1' : '0.5';
+    saveButton.style.pointerEvents = hasContent ? 'auto' : 'none';
+  }
+}
+
+async function saveFile() {
   let content = getEditorContent();
   let language = document.getElementById('languageSelect').value;
+  let expiration = document.getElementById('expirationSelect').value;
+
+  if (!content || content.trim().length === 0) {
+    return;
+  }
 
   if (language === DEFAULT_LANGUAGE) {
     language = hljs.highlightAuto(content).language;
@@ -199,7 +235,7 @@ async function saveFile() {
 
   const response = await fetch("/", {
     method: "POST",
-    body: JSON.stringify({ content, language }),
+    body: JSON.stringify({ content, language, expiration }),
     headers: {
       'Content-Type': 'application/json'
     }
@@ -215,6 +251,7 @@ if (isEditMode) {
   editor.addEventListener('input', () => {
     updateLineNumbers();
     updateStats();
+    updateSaveButtonState();
   });
   editor.addEventListener('keydown', (e) => {
     if (e.key === 'Tab') {
@@ -227,6 +264,7 @@ if (isEditMode) {
 
       updateLineNumbers();
       updateStats();
+      updateSaveButtonState();
     }
   });
   editor.addEventListener('scroll', () => {
@@ -234,6 +272,7 @@ if (isEditMode) {
   });
   updateLineNumbers();
   updateStats();
+  updateSaveButtonState();
 } else {
   editor.parentElement.addEventListener('scroll', () => {
     lineNumbers.scrollTop = editor.parentElement.scrollTop;
@@ -279,6 +318,7 @@ document.addEventListener('readystatechange', () => {
     setupLanguageDisplay();
   } else {
     populateLanguageSelect();
+    populateExpirationSelect();
   }
 
   const highlightLang = highlightLangMeta?.getAttribute('content');

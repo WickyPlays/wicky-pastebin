@@ -23,7 +23,10 @@ export const Editor = ({ content = '', language, edit }: EditorProps) => {
           <div class="header-left">
             <h1 class="header-title" onclick="window.location.href = '/';">WickyPastebin</h1>
             {edit ? (
-              <select class="language-select" id="languageSelect"></select>
+              <>
+                <select class="language-select" id="languageSelect"></select>
+                <select class="expiration-select" id="expirationSelect"></select>
+              </>
             ) : (
               <span class="language-display" id="languageDisplay"></span>
             )}
@@ -42,7 +45,7 @@ export const Editor = ({ content = '', language, edit }: EditorProps) => {
               <img src="/img/icons/sun.svg" alt="Toggle Theme" id="themeIcon" />
             </div>
             {edit && (
-              <div class="icon" id="save" title="Save" onclick="saveFile()">
+              <div class="icon" id="save" title="Save" onclick="saveFile()" disabled>
                 <img src="/img/icons/save.svg" alt="Save" />
               </div>
             )}
