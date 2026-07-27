@@ -5,6 +5,7 @@ import { getPrisma } from "./prisma/adapter"
 import { generateRandomStr } from "./utils/identifiers"
 import { jsxRenderer } from 'hono/jsx-renderer'
 import { Editor } from "./components/Editor"
+import { rateLimitMiddleware } from "./middleware/rateLimit"
 
 const app = new Hono()
 
@@ -80,7 +81,7 @@ app.get("/:id/raw", async (c) => {
   });
 })
 
-app.post("/", async (c) => {
+app.post("/", rateLimitMiddleware, async (c) => {
   const { content, language, expiration } = await c.req.json();
   const prisma = await getPrisma();
 

@@ -10,6 +10,7 @@ This project serves as the bare minimum implementation of a real pastebin applic
 - **Clean Interface** - Minimalist design with EJS templates
 - **Fast Performance** - Built on Hono for optimal speed
 - **Hot Reload** - Development server with hot reload
+- **Rate Limiting** - Prevent abuse with rate limiting
 
 ## Installation
 
