@@ -4,7 +4,7 @@
   "type": "module",
   "scripts": {
     "dev:server": "bun --hot src/index.tsx",
-    "dev:css": "sass --watch src/public/css/editor.scss src/public/css/editor.css",
+    "dev:css": "sass --watch public/css/editor.scss public/css/editor.css",
     "dev": "concurrently \"bun run dev:server\" \"bun run dev:css\"",
     "build": "bun run build:css && bun prisma generate && bun build src/index.tsx --target=node --outfile dist/index.js",
     "build:css": "sass public/css/editor.scss public/css/editor.css",

@@ -320,3 +320,17 @@ code.hljs {
     }
   }
 }
+
+#raw-button {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  background-color: var(--bg-tertiary);
+  border-radius: 4px;
+  padding: 4px 8px;
+
+  &:hover {
+    background-color: var(--bg-secondary);
+  }
+}

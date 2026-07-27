@@ -14,6 +14,7 @@ const fontSelect = document.getElementById('fontSelect');
 const languageSelect = document.getElementById('languageSelect');
 const expirationSelect = document.getElementById('expirationSelect');
 const saveButton = document.getElementById('save');
+const rawButton = document.getElementById('raw-button');
 const highlightLangMeta = document.querySelector('meta[name="highlight-language"]');
 const languageDisplay = document.getElementById('languageDisplay');
 
@@ -32,90 +33,65 @@ const expirationOptions = [
 
 const languages = [
   { value: 'auto', label: 'Auto-detect' },
-
-  { value: 'plaintext', label: 'Plain Text' },
-
-  // Web
-  { value: 'html', label: 'HTML' },
-  { value: 'xml', label: 'XML' },
-  { value: 'css', label: 'CSS' },
-  { value: 'scss', label: 'SCSS' },
-  { value: 'sass', label: 'Sass' },
-  { value: 'less', label: 'Less' },
-  { value: 'javascript', label: 'JavaScript' },
-  { value: 'typescript', label: 'TypeScript' },
-  { value: 'jsx', label: 'React JSX' },
-  { value: 'tsx', label: 'React TSX' },
-  { value: 'json', label: 'JSON' },
-  { value: 'yaml', label: 'YAML' },
-  { value: 'toml', label: 'TOML' },
-
-  // C Family
+  { value: 'apache', label: 'Apache' },
+  { value: 'bash', label: 'Bash' },
   { value: 'c', label: 'C' },
+  { value: 'cmake', label: 'CMake' },
+  { value: 'clojure', label: 'Clojure' },
   { value: 'cpp', label: 'C++' },
   { value: 'csharp', label: 'C#' },
-  { value: 'objectivec', label: 'Objective-C' },
-
-  // JVM
-  { value: 'java', label: 'Java' },
-  { value: 'kotlin', label: 'Kotlin' },
-  { value: 'scala', label: 'Scala' },
-  { value: 'groovy', label: 'Groovy' },
-
-  // Microsoft
-  { value: 'powershell', label: 'PowerShell' },
-  { value: 'vbnet', label: 'VB.NET' },
-  { value: 'fsharp', label: 'F#' },
-
-  // Systems
-  { value: 'rust', label: 'Rust' },
-  { value: 'go', label: 'Go' },
-  { value: 'zig', label: 'Zig' },
-  { value: 'swift', label: 'Swift' },
-
-  // Scripting
-  { value: 'python', label: 'Python' },
-  { value: 'ruby', label: 'Ruby' },
-  { value: 'php', label: 'PHP' },
-  { value: 'perl', label: 'Perl' },
-  { value: 'lua', label: 'Lua' },
-  { value: 'r', label: 'R' },
-
-  // Functional
-  { value: 'haskell', label: 'Haskell' },
+  { value: 'css', label: 'CSS' },
+  { value: 'diff', label: 'Diff' },
+  { value: 'dockerfile', label: 'Dockerfile' },
+  { value: 'dos', label: 'Batch' },
   { value: 'elixir', label: 'Elixir' },
   { value: 'erlang', label: 'Erlang' },
-  { value: 'clojure', label: 'Clojure' },
-  { value: 'ocaml', label: 'OCaml' },
-
-  // Databases
-  { value: 'sql', label: 'SQL' },
-  { value: 'pgsql', label: 'PostgreSQL' },
-
-  // Shell
-  { value: 'bash', label: 'Bash' },
-  { value: 'shell', label: 'Shell' },
-  { value: 'zsh', label: 'Zsh' },
-  { value: 'dos', label: 'Batch' },
-
-  // Config / DevOps
-  { value: 'dockerfile', label: 'Dockerfile' },
-  { value: 'nginx', label: 'Nginx' },
-  { value: 'apache', label: 'Apache' },
-  { value: 'ini', label: 'INI' },
-  { value: 'properties', label: 'Properties' },
-
-  // Markup
-  { value: 'markdown', label: 'Markdown' },
-  { value: 'latex', label: 'LaTeX' },
-
-  // Misc
-  { value: 'diff', label: 'Diff' },
-  { value: 'makefile', label: 'Makefile' },
-  { value: 'cmake', label: 'CMake' },
+  { value: 'fsharp', label: 'F#' },
+  { value: 'go', label: 'Go' },
   { value: 'graphql', label: 'GraphQL' },
+  { value: 'groovy', label: 'Groovy' },
+  { value: 'haskell', label: 'Haskell' },
+  { value: 'html', label: 'HTML' },
+  { value: 'ini', label: 'INI' },
+  { value: 'java', label: 'Java' },
+  { value: 'javascript', label: 'JavaScript' },
+  { value: 'json', label: 'JSON' },
+  { value: 'jsx', label: 'React JSX' },
+  { value: 'kotlin', label: 'Kotlin' },
+  { value: 'latex', label: 'LaTeX' },
+  { value: 'less', label: 'Less' },
+  { value: 'lua', label: 'Lua' },
+  { value: 'makefile', label: 'Makefile' },
+  { value: 'markdown', label: 'Markdown' },
+  { value: 'nginx', label: 'Nginx' },
+  { value: 'objectivec', label: 'Objective-C' },
+  { value: 'ocaml', label: 'OCaml' },
+  { value: 'perl', label: 'Perl' },
+  { value: 'pgsql', label: 'PostgreSQL' },
+  { value: 'php', label: 'PHP' },
+  { value: 'plaintext', label: 'Plain Text' },
+  { value: 'powershell', label: 'PowerShell' },
+  { value: 'properties', label: 'Properties' },
   { value: 'protobuf', label: 'Protocol Buffers' },
-  { value: 'vim', label: 'Vim Script' }
+  { value: 'python', label: 'Python' },
+  { value: 'r', label: 'R' },
+  { value: 'ruby', label: 'Ruby' },
+  { value: 'rust', label: 'Rust' },
+  { value: 'sass', label: 'Sass' },
+  { value: 'scala', label: 'Scala' },
+  { value: 'scss', label: 'SCSS' },
+  { value: 'shell', label: 'Shell' },
+  { value: 'sql', label: 'SQL' },
+  { value: 'swift', label: 'Swift' },
+  { value: 'toml', label: 'TOML' },
+  { value: 'tsx', label: 'React TSX' },
+  { value: 'typescript', label: 'TypeScript' },
+  { value: 'vbnet', label: 'VB.NET' },
+  { value: 'vim', label: 'Vim Script' },
+  { value: 'xml', label: 'XML' },
+  { value: 'yaml', label: 'YAML' },
+  { value: 'zig', label: 'Zig' },
+  { value: 'zsh', label: 'Zsh' }
 ];
 
 function populateLanguageSelect() {
@@ -312,6 +288,12 @@ settingsDialog.addEventListener('click', (e) => {
 fontSelect.addEventListener('change', () => {
   setFont(fontSelect.value);
 });
+
+if (rawButton) {
+  rawButton.addEventListener('click', () => {
+    window.location.href = window.location.pathname + '/raw';
+  });
+}
 
 document.addEventListener('readystatechange', () => {
   if (!isEditMode) {

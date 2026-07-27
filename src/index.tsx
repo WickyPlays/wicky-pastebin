@@ -61,6 +61,25 @@ app.get("/:id", async (c) => {
   return c.render(<Editor content={paste.content} language={paste.language} edit={false} />);
 })
 
+app.get("/:id/raw", async (c) => {
+  const id = c.req.param("id");
+  const paste = await (await getPrisma()).paste.findUnique({
+    where: { id }
+  });
+
+  if (!paste) {
+    return c.text("Paste not found", 404);
+  }
+
+  if (paste.expiryTime && paste.expiryTime < new Date()) {
+    return c.text("Paste has expired", 404);
+  }
+
+  return c.text(paste.content, 200, {
+    "Content-Type": "text/plain; charset=utf-8"
+  });
+})
+
 app.post("/", async (c) => {
   const { content, language, expiration } = await c.req.json();
   const prisma = await getPrisma();

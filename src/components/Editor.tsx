@@ -32,6 +32,12 @@ export const Editor = ({ content = '', language, edit }: EditorProps) => {
             )}
           </div>
           <div class="header-right">
+            {!edit && (
+              <div class="icon" id="raw-button" title="Raw">
+                <img src="/img/icons/raw.svg" alt="Raw" class="icon-img" />
+                <span>Raw</span>
+              </div>
+            )}
             <div id="stats-info">
               <span id="charCount">0</span> chars
               <span class="separator"></span>
