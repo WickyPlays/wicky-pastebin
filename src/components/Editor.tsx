@@ -66,9 +66,13 @@ export const Editor = ({ content = '', language, edit }: EditorProps) => {
         <div class="editor-container">
           <div class="line-numbers" id="lineNumbers"></div>
           {edit ? (
-            <textarea class="editor" id="editor" placeholder="Type or paste your content here...">{content}</textarea>
+            <div class="editor-wrapper">
+              <textarea id="editor" placeholder="Type or paste your content here..." wrap="off">{content}</textarea>
+            </div>
           ) : (
-            <pre class="editor"><code class="hljs" id="editor">{content}</code></pre>
+            <div class="editor-wrapper">
+              <pre id="editor"><code class="hljs">{content}</code></pre>
+            </div>
           )}
         </div>
         <InfoDialog />

@@ -34,6 +34,7 @@
 body {
   height: 100vh;
   display: flex;
+  overflow: hidden;
   flex-direction: column;
   font-family: Arial, sans-serif;
   background: var(--bg-primary);
@@ -151,10 +152,13 @@ h1:hover {
   flex: 1;
   display: flex;
   overflow: hidden;
+  max-width: 100vw;
+  box-sizing: border-box;
 }
 
 .line-numbers {
   padding: 16px 8px;
+  padding-bottom: 32px;
   width: 60px;
   min-width: 60px;
   background: var(--bg-tertiary);
@@ -171,8 +175,13 @@ h1:hover {
   height: 1.5em;
 }
 
-.editor {
+.editor-wrapper {
   flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+#editor {
   border: none;
   resize: none;
   font-family: "Courier New", monospace;
@@ -181,35 +190,50 @@ h1:hover {
   outline: none;
   background: var(--bg-primary);
   color: var(--text-primary);
+  box-sizing: border-box;
+  min-width: 100%;
+  min-height: 100%;
+  width: 100%;
+  height: 100%;
 }
-.editor:disabled {
+#editor::-webkit-scrollbar {
+  background: none;
+  width: 8px;
+  height: 8px;
+}
+#editor::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background: var(--border-color);
+  border-radius: 5px;
+}
+#editor::-webkit-scrollbar-thumb:hover {
+  background: var(--text-primary);
+}
+#editor::-webkit-scrollbar-track {
+  background: transparent;
+}
+#editor::-webkit-scrollbar-corner {
+  background: transparent;
+}
+#editor:disabled {
   opacity: 0.7;
   cursor: not-allowed;
 }
-textarea.editor {
+textarea#editor {
   margin: 0;
   padding: 16px 10px !important;
-  overflow: auto;
 }
 
-pre.editor {
+pre#editor {
   margin: 0;
   padding: 16px 10px;
-  overflow: auto;
 }
 
 code.hljs {
   background: transparent;
   padding: 0 !important;
   color: var(--text-primary) !important;
-}
-
-#editor {
-  width: 100%;
-  height: 100%;
-  min-height: 100%;
-  min-width: 100%;
-  outline: none !important;
+  overflow-wrap: normal;
 }
 
 .dialog-backdrop {
