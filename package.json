@@ -12,7 +12,8 @@
   },
   "author": {
     "name": "WickyPlays",
-    "email": "baottworkspace@gmail.com"
+    "email": "baottworkspace@gmail.com",
+    "url": "https://baottworkspace.com"
   },
   "dependencies": {
     "@hono/node-server": "^2.0.12",
@@ -20,7 +21,6 @@
     "@prisma/adapter-libsql": "^7.9.0",
     "@prisma/adapter-pg": "^7.9.0",
     "@prisma/client": "^7.9.0",
-    "@vercel/ncc": "^0.44.1",
     "concurrently": "^10.0.4",
     "highlight.js": "^11.11.1",
     "hono": "^4.12.32",
