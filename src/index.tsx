@@ -34,7 +34,7 @@ app.use(
     <html>
       <head>
         <meta charSet="utf-8" />
-        <title>Pastebin</title>
+        <title>WickyPastebin</title>
       </head>
       <body>{children}</body>
     </html>
