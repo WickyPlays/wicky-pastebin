@@ -373,6 +373,15 @@ code.hljs {
         margin-bottom: 0;
       }
     }
+
+    a {
+      color: var(--text-primary);
+      text-decoration: underline;
+
+      &:hover {
+        color: var(--text-secondary);
+      }
+    }
   }
 }
 

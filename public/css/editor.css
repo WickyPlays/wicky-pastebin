@@ -339,6 +339,13 @@ code.hljs {
 .dialog-content p:last-child {
   margin-bottom: 0;
 }
+.dialog-content a {
+  color: var(--text-primary);
+  text-decoration: underline;
+}
+.dialog-content a:hover {
+  color: var(--text-secondary);
+}
 
 .setting-group {
   display: flex;
