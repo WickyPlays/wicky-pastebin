@@ -11,6 +11,7 @@ const lineCount = document.getElementById('lineCount');
 const wordCount = document.getElementById('wordCount');
 const sizeCount = document.getElementById('sizeCount');
 const fontSelect = document.getElementById('fontSelect');
+const themeSelect = document.getElementById('themeSelect');
 const languageSelect = document.getElementById('languageSelect');
 const expirationSelect = document.getElementById('expirationSelect');
 const saveButton = document.getElementById('save');
@@ -147,8 +148,24 @@ function getFont() {
   return "'Courier New', monospace";
 }
 
+function setSyntaxTheme(theme) {
+  const existingLink = document.getElementById('highlight-theme');
+  if (existingLink) {
+    existingLink.href = `https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/${theme}.min.css`;
+  }
+  localStorage.setItem('syntaxTheme', theme);
+  if (themeSelect) themeSelect.value = theme;
+}
+
+function getSyntaxTheme() {
+  const savedTheme = localStorage.getItem('syntaxTheme');
+  if (savedTheme) return savedTheme;
+  return 'default';
+}
+
 setTheme(getTheme());
 setFont(getFont());
+setSyntaxTheme(getSyntaxTheme());
 
 themeToggle.addEventListener('click', () => {
   const currentTheme = document.documentElement.getAttribute('data-theme');
@@ -250,8 +267,8 @@ if (isEditMode) {
   updateStats();
   updateSaveButtonState();
 } else {
-  editor.parentElement.addEventListener('scroll', () => {
-    lineNumbers.scrollTop = editor.parentElement.scrollTop;
+  editor.addEventListener('scroll', () => {
+    lineNumbers.scrollTop = editor.scrollTop;
   });
   updateLineNumbers();
   updateStats();
@@ -288,6 +305,12 @@ settingsDialog.addEventListener('click', (e) => {
 fontSelect.addEventListener('change', () => {
   setFont(fontSelect.value);
 });
+
+if (themeSelect) {
+  themeSelect.addEventListener('change', () => {
+    setSyntaxTheme(themeSelect.value);
+  });
+}
 
 if (rawButton) {
   rawButton.addEventListener('click', () => {

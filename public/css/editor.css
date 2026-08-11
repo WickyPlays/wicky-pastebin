@@ -148,7 +148,7 @@ h1:hover {
   height: 20px;
 }
 .icon#save img {
-  filter: invert(42%) sepia(93%) saturate(1352%) hue-rotate(4deg) brightness(101%) contrast(103%);
+  filter: invert(29%) sepia(89%) saturate(1590%) hue-rotate(93deg) brightness(96%) contrast(96%);
 }
 
 .editor-container {
@@ -230,6 +230,7 @@ textarea#editor {
 pre#editor {
   margin: 0;
   padding: 16px 10px;
+  overflow: scroll !important;
 }
 
 code.hljs {
@@ -300,14 +301,12 @@ code.hljs {
 .dialog-content p:last-child {
   margin-bottom: 0;
 }
-.dialog-content * {
-  color: #FFF !important;
-}
 
 .setting-group {
   display: flex;
   flex-direction: column;
   gap: 8px;
+  margin-bottom: 15px;
 }
 .setting-group label {
   font-weight: 600;

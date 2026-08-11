@@ -19,6 +19,19 @@ export const SettingsDialog = () => {
               <option value="monospace">Monospace (System)</option>
             </select>
           </div>
+          <div class="setting-group">
+            <label for="themeSelect">Syntax Theme</label>
+            <select id="themeSelect">
+              <option value="default">Default</option>
+              <option value="github-dark">GitHub Dark</option>
+              <option value="atom-one-dark">Atom One Dark</option>
+              <option value="atom-one-light">Atom One Light</option>
+              <option value="dracula">Dracula</option>
+              <option value="nord">Nord</option>
+              <option value="monokai">Monokai</option>
+              <option value="vs2015">Visual Studio 2015</option>
+            </select>
+          </div>
         </div>
       </div>
     </div>

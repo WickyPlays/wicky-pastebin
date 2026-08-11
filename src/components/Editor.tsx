@@ -14,7 +14,6 @@ export const Editor = ({ content = '', language, edit }: EditorProps) => {
       <head>
         <title>WickyPastebin - {language ? `${language} ` : ''}Editor</title>
         <link rel="stylesheet" href="/css/editor.css" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta property="og:title" content={`Paste - ${language}`} />
         <meta property="og:description" content={content.slice(0, 200)} />
@@ -23,6 +22,7 @@ export const Editor = ({ content = '', language, edit }: EditorProps) => {
         <meta property="og:image" content={`https://yourdomain.com/og/${language}.png`} />
 
         {language && <meta name="highlight-language" content={language} />}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.11.1/styles/default.min.css" id="highlight-theme" />
       </head>
       <body>
         <div class="header">

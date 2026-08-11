@@ -5,6 +5,7 @@ import { getPrisma } from "./prisma/adapter"
 import { generateRandomStr } from "./utils/identifiers"
 import { jsxRenderer } from 'hono/jsx-renderer'
 import { Editor } from "./components/Editor"
+import { NotFound } from "./components/NotFound"
 import { rateLimitMiddleware } from "./middleware/rateLimit"
 
 const app = new Hono()
@@ -52,11 +53,11 @@ app.get("/:id", async (c) => {
   });
 
   if (!paste) {
-    return c.html("<h1>Paste not found</h1>", 404);
+    return c.html(<NotFound />, 404);
   }
 
   if (paste.expiryTime && paste.expiryTime < new Date()) {
-    return c.html("<h1>Paste has expired</h1>", 404);
+    return c.html(<NotFound />, 404);
   }
 
   return c.render(<Editor content={paste.content} language={paste.language} edit={false} />);
