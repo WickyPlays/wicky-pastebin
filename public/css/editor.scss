@@ -60,10 +60,34 @@ h1 {
   font-size: 13px;
   cursor: pointer;
   outline: none;
-  max-width: 150px;
+  max-width: 120px;
 
   &:focus {
     border-color: var(--text-secondary);
+  }
+
+  &::-webkit-scrollbar {
+    background: none;
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    background: var(--border-color);
+    border-radius: 3px;
+
+    &:hover {
+      background: var(--text-primary);
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: transparent;
   }
 }
 
@@ -80,6 +104,30 @@ h1 {
 
   &:focus {
     border-color: var(--text-secondary);
+  }
+
+  &::-webkit-scrollbar {
+    background: none;
+    width: 6px;
+    height: 6px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    cursor: pointer;
+    background: var(--border-color);
+    border-radius: 3px;
+
+    &:hover {
+      background: var(--text-primary);
+    }
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-corner {
+    background: transparent;
   }
 }
 
@@ -352,6 +400,30 @@ code.hljs {
 
     &:focus {
       border-color: var(--text-secondary);
+    }
+
+    &::-webkit-scrollbar {
+      background: none;
+      width: 6px;
+      height: 6px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      cursor: pointer;
+      background: var(--border-color);
+      border-radius: 3px;
+
+      &:hover {
+        background: var(--text-primary);
+      }
+    }
+
+    &::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    &::-webkit-scrollbar-corner {
+      background: transparent;
     }
   }
 }

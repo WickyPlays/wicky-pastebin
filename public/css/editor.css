@@ -58,10 +58,29 @@ h1:hover {
   font-size: 13px;
   cursor: pointer;
   outline: none;
-  max-width: 150px;
+  max-width: 120px;
 }
 .language-select:focus {
   border-color: var(--text-secondary);
+}
+.language-select::-webkit-scrollbar {
+  background: none;
+  width: 6px;
+  height: 6px;
+}
+.language-select::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background: var(--border-color);
+  border-radius: 3px;
+}
+.language-select::-webkit-scrollbar-thumb:hover {
+  background: var(--text-primary);
+}
+.language-select::-webkit-scrollbar-track {
+  background: transparent;
+}
+.language-select::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 .expiration-select {
@@ -77,6 +96,25 @@ h1:hover {
 }
 .expiration-select:focus {
   border-color: var(--text-secondary);
+}
+.expiration-select::-webkit-scrollbar {
+  background: none;
+  width: 6px;
+  height: 6px;
+}
+.expiration-select::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background: var(--border-color);
+  border-radius: 3px;
+}
+.expiration-select::-webkit-scrollbar-thumb:hover {
+  background: var(--text-primary);
+}
+.expiration-select::-webkit-scrollbar-track {
+  background: transparent;
+}
+.expiration-select::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 .language-display {
@@ -325,6 +363,25 @@ code.hljs {
 }
 .setting-group select:focus {
   border-color: var(--text-secondary);
+}
+.setting-group select::-webkit-scrollbar {
+  background: none;
+  width: 6px;
+  height: 6px;
+}
+.setting-group select::-webkit-scrollbar-thumb {
+  cursor: pointer;
+  background: var(--border-color);
+  border-radius: 3px;
+}
+.setting-group select::-webkit-scrollbar-thumb:hover {
+  background: var(--text-primary);
+}
+.setting-group select::-webkit-scrollbar-track {
+  background: transparent;
+}
+.setting-group select::-webkit-scrollbar-corner {
+  background: transparent;
 }
 
 #raw-button {
