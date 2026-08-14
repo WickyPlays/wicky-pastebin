@@ -1,6 +1,6 @@
 # WickyPastebin
 
-A modern, lightweight pastebin application built with Bun, Hono, and Prisma. Use this to share code snippets, text, and notes with syntax highlighting and a clean interface.
+A modern, lightweight pastebin application template built with Bun, Hono, and Prisma. Use this to share code snippets, text, and notes with syntax highlighting and a clean interface.
 This project serves as the bare minimum implementation of a real pastebin application. Shape whatever you like with this.
 
 ## Features
